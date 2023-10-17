@@ -12,9 +12,7 @@
     }
   },
   "background": {
-    "scripts": [
-      "main/background.js"
-    ]
+    "service_worker": "main/background.js"
   },
   "options_ui": {
     "page": "main/options.html",
@@ -30,7 +28,8 @@
     "open_alt_frontend": {
       "suggested_key": {
         "default": "Alt+J"
-      }
+      },
+      "description": "Open alternative frontend"
     }
   },
   "content_scripts": [
@@ -43,12 +42,6 @@
       ]
     }
   ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "ytsiphon@f3.al",
-      "strict_min_version": "109.0"
-    }
-  },
   "host_permissions": [
     "*://*.youtube.com/*"
   ]
