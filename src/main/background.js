@@ -1,5 +1,6 @@
 const YOUTUBE_HOSTNAME = 'www.youtube.com';
 const DEFAULT_FRONTEND_URL = 'piped.video';
+const YOUTUBE_VIDEO_PATH = '/watch';
 
 chrome.storage.sync.get(['frontendUrl'], function(data) {
   if (!data || !data.frontendUrl) {
@@ -7,31 +8,38 @@ chrome.storage.sync.get(['frontendUrl'], function(data) {
   }
 });
 
-chrome.action.onClicked.addListener((tab) => {
-  chrome.runtime.openOptionsPage();
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.status === 'loading') {
+    let url = new URL(tab.url);
+    if (url.hostname === YOUTUBE_HOSTNAME && url.pathname.startsWith(YOUTUBE_VIDEO_PATH)) {
+      chrome.storage.sync.get(['frontendUrl', 'instantRedirect'], function(data) {
+        if (data.instantRedirect) {
+          let frontend = data.frontendUrl;
+          let newUrl = tab.url.replace(YOUTUBE_HOSTNAME, frontend);
+          chrome.tabs.update(tabId, { url: newUrl });
+        }
+      });
+    }
+  }
 });
 
 chrome.commands.onCommand.addListener(function(command) {
-  console.log(command);
-  if (command === "open_alt_frontend") {
-    console.log("Execute action");
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const tab = tabs[0];
-      if (tab.url && tab.url.includes(YOUTUBE_HOSTNAME)) {
-        console.log(tab.url);
-        chrome.storage.sync.get(['frontendUrl'], function(data) {
-          let frontend = data.frontendUrl;
-          console.log(frontend);
-          let newUrl = tab.url.replace(YOUTUBE_HOSTNAME, frontend);
-          chrome.tabs.update(tab.id, { url: newUrl });
+  if (command === 'open_alt_frontend') {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      let url = new URL(tabs[0].url);
+      if (url.hostname === YOUTUBE_HOSTNAME && url.pathname.startsWith(YOUTUBE_VIDEO_PATH)) {
+        chrome.storage.sync.get(['frontendUrl', 'instantRedirect'], function(data) {
+          if (!data.instantRedirect && data.frontendUrl) {
+            let frontend = data.frontendUrl;
+            let newUrl = tabs[0].url.replace(YOUTUBE_HOSTNAME, frontend);
+            chrome.tabs.update(tabs[0].id, { url: newUrl });
+          }
         });
       }
     });
   }
 });
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.openTab) {
-    chrome.tabs.create({ url: message.openTab, active: false });
-  }
+chrome.action.onClicked.addListener((tab) => {
+  chrome.tabs.create({ url: 'main/options.html' });
 });

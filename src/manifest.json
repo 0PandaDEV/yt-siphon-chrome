@@ -22,7 +22,8 @@
     "tabs",
     "scripting",
     "activeTab",
-    "storage"
+    "storage",
+    "webRequest"
   ],
   "commands": {
     "open_alt_frontend": {
