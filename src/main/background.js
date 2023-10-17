@@ -1,17 +1,15 @@
 const YOUTUBE_HOSTNAME = 'www.youtube.com';
 const DEFAULT_FRONTEND_URL = 'piped.video';
 
-
 chrome.storage.sync.get(['frontendUrl'], function(data) {
   if (!data || !data.frontendUrl) {
     chrome.storage.sync.set({ 'frontendUrl': DEFAULT_FRONTEND_URL });
   }
 });
 
-browser.action.onClicked.addListener((tab) => {
-  browser.runtime.openOptionsPage();
+chrome.action.onClicked.addListener((tab) => {
+  chrome.runtime.openOptionsPage();
 });
-
 
 chrome.commands.onCommand.addListener(function(command) {
   console.log(command);
@@ -37,4 +35,3 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     chrome.tabs.create({ url: message.openTab, active: false });
   }
 });
-
