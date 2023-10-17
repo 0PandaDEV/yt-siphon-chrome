@@ -2,7 +2,7 @@
   <img width="460" src="src/icons/logo.png" alt="YT Siphon Logo">
 </p>
 
-# YT Siphon
+# YT Siphon (Chrome Edition)
 ### Redirect YouTube URLs to Alternative Frontends Manually
 
 **YT Siphon** is a browser extension that lets you choose to open YouTube videos in alternative frontends. Instead of auto-redirecting, it gives you the power to decide with simple shortcuts.
@@ -25,7 +25,7 @@ YouTube started cracking down on Ad Blocker usage, so this is my workaround.
 > For a Firefox version check out the original reposetory [d3vr/yt-siphon](https://github.com/d3vr/yt-siphon)
 
 ### Manual
-1. Download the `.zip` addon file from the [Releases page](https://github.com/d3vr/yt-siphon/releases/)
+1. Download the `.zip` addon file from the [Releases page](https://github.com/0pandadev/yt-siphon-chrome/releases/)
 2. Go to `chrome://extensions/`
 3. Now drag the `.zip` into the window
 
