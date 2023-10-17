@@ -22,20 +22,12 @@ YouTube started cracking down on Ad Blocker usage, so this is my workaround.
 
 ## Installation
 
-### Mozilla Add-Ons site
-[Get the add-on from addons.mozilla.org](https://addons.mozilla.org/en-US/firefox/addon/yt-siphon/)
+> For a Firefox version check out the original reposetory [d3vr/yt-siphon](https://github.com/d3vr/yt-siphon)
 
 ### Manual
-1. Download the `.xpi` addon file from the [Releases page](https://github.com/d3vr/yt-siphon/releases/)
-2. Go to `about:addons`
-3. Click the gear icon and select `Install Add-on From File`
-
-### Cloned repo
-1. Clone the repository or download as zip
-2. Go to `about:debugging`
-3. Click on `This Firefox`
-4. Then `Load Temporary Add-on`
-5. Select `manifest.json` in the `src/` directory from the cloned repo.
+1. Download the `.zip` addon file from the [Releases page](https://github.com/d3vr/yt-siphon/releases/)
+2. Go to `chrome://extensions/`
+3. Now drag the `.zip` into the window
 
 
 ## Configuration
